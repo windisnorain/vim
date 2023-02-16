@@ -1,2 +1,2 @@
-# vimconf
+# MyVimConfiguration
 vim configuration
