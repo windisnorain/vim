@@ -34,7 +34,7 @@ set relativenumber     	"显示相对行号
 set cursorline              	"突出显示当前行
 set magic                   	"设置魔术
 set gdefault   		"行内替换
-set novisualbell    		"光标不要闪烁
+""set novisualbell    		"光标不要闪烁
 set showmatch    		"高亮显示匹配的括号
 set matchtime=1   		"匹配括号高亮的时间（单位是十分之一秒）
 
@@ -47,7 +47,7 @@ set guioptions-=m " 隐藏菜单栏
 ""autocmd InsertEnter * se cul    " 用浅色高亮当前行  
  
 set showcmd        	 "右下角显示输入的命令  
-"set cmdheight=2    "命令行（在状态行下）的高度，默认为1，设置为2    
+""set cmdheight=2    "命令行（在状态行下）的高度，默认为1，设置为2    
 
 set laststatus=2    " 启动显示状态行(1),总是显示状态行(2)
 "" 状态行显示的内容（包括文件类型和解码）
@@ -113,14 +113,14 @@ set nowrapscan " 禁止在搜索到文件两端时重新搜索
 " "========自动补全=========
 set completeopt=longest,menu "自动补全命令
 "自动补全配对符号
-:inoremap ( ()<ESC>i
+"":inoremap ( ()<ESC>i
 :inoremap ) <c-r>=ClosePair(')')<CR>
 :inoremap { {<CR>}<ESC>O
 :inoremap } <c-r>=ClosePair('}')<CR>
-:inoremap [ []<ESC>i
+"":inoremap [ []<ESC>i
 :inoremap ] <c-r>=ClosePair(']')<CR>
-:inoremap " ""<ESC>i
-:inoremap ' ''<ESC>i
+"":inoremap " ""<ESC>i
+"":inoremap ' ''<ESC>i
 function! ClosePair(char)
  	if getline('.')[col('.') - 1] == a:char
 		return "\<Right>"
@@ -129,4 +129,50 @@ function! ClosePair(char)
  	endif
 endfunction
 
+""==========插件管理==========
+call plug#begin('~/.vim/plugged')
 
+Plug 'preservim/nerdtree'
+""open nerdtree when vim is open
+autocmd VimEnter * NERDTree | wincmd p
+""Close the tab if NERDTree is the only window remaining in it.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+Plug 'rhysd/vim-clang-format'
+"coding style options, code_style is a base style, LLVM, GNU, Google, Chromium, Mozilla, Webkit, Microsoft is supported. default value is google.
+"let g:clang_format#code_style=LLVM
+"coding style options is a dictionary"
+let g:clang_format#style_options={}
+"value 1 means 自动格式化在保存时"
+let g:clang_format#auto_format=1
+"value 1 means 插入的行自动格式化在退出插入模式时"
+let g:clang_format#auto_format_on_insert_leave=1
+""对于c类型文件自动格式化启用
+autocmd FileType c ClangFormatAutoEnable
+
+Plug 'scrooloose/nerdcommenter'
+" Create default mappings
+let g:NERDCreateDefaultMappings = 1
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+" Enable NERDCommenterToggle to check all selected lines is commented or not 
+let g:NERDToggleCheckAllLines = 1
+
+
+""Plug 'vim-airline/vim-airline'
+""Plug 'vim-airline/vim-airline-themes'
+""Plug 'valloric/youcompleteme'
+
+call plug#end()
