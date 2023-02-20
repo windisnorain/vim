@@ -140,11 +140,15 @@ endfunction
 
 call plug#begin('~/.vim/plugged')
 
+"============  nerdtree  ============
+
 Plug 'preservim/nerdtree'
 ""open nerdtree when vim is open
 " autocmd VimEnter * NERDTree | wincmd p
 ""Close the tab if NERDTree is the only window remaining in it.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+"==========  clangformat  ===========
 
 Plug 'rhysd/vim-clang-format'
 "coding style options, code_style is a base style, LLVM, Google, Chromium, Mozilla, Webkit, Microsoft is supported. default value is google.
@@ -156,6 +160,8 @@ let g:clang_format#auto_format=1
 " let g:clang_format#auto_format_on_insert_leave=1
 ""对于c类型文件自动格式化启用
 autocmd FileType c ClangFormatAutoEnable
+
+"=========  nerdcommenter  ==========
 
 Plug 'scrooloose/nerdcommenter'
 " Create default mappings
@@ -176,6 +182,8 @@ let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 " Enable NERDCommenterToggle to check all selected lines is commented or not 
 let g:NERDToggleCheckAllLines = 1
+
+"============  others  =============
 
 ""Plug 'vim-airline/vim-airline'
 ""Plug 'vim-airline/vim-airline-themes'
