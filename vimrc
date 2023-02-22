@@ -114,13 +114,14 @@ set showfulltag "补全函数时，自动补全参数
 :inoremap <c-l> <Right>
 :inoremap <c-k> <Left>
 :nnoremap <leader>n :NERDTree<CR>
+:nnoremap <leader>t :vert terminal<CR>
 
 "自动补全配对符号
 :inoremap ( ()<ESC>i
 :inoremap ) <c-r>=ClosePair(')')<CR>
-:inoremap < <><ESC>i
+":inoremap < <><ESC>i
 :inoremap > <c-r>=ClosePair('>')<CR>
-:inoremap { {}<ESC>i
+:inoremap { {}<ESC>i<CR><ESC>O
 :inoremap } <c-r>=ClosePair('}')<CR>
 :inoremap [ []<ESC>i
 :inoremap ] <c-r>=ClosePair(']')<CR>

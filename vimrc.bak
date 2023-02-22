@@ -2,6 +2,7 @@
 "============  基本设置  ============
 "====================================
 
+
 "============  文件设置  ============
 
 set history=100             	"历史记录数
@@ -103,18 +104,29 @@ set nowrapscan 		 "禁止在搜索到文件两端时重新搜索
 "set selection=exclusive
 "set selectmode=mouse,key
 
-"============  自动补全  ============
+"============  映射补全  ============
 
 set completeopt=longest,menu "自动补全命令
+set showfulltag "补全函数时，自动补全参数
+
+"键盘映射
+
+:inoremap <c-l> <Right>
+:inoremap <c-k> <Left>
+:nnoremap <leader>n :NERDTree<CR>
+:nnoremap <leader>t :vert terminal<CR>
+
 "自动补全配对符号
-":inoremap ( ()<ESC>i
+:inoremap ( ()<ESC>i
 :inoremap ) <c-r>=ClosePair(')')<CR>
-:inoremap { {<CR>}<ESC>O
+":inoremap < <><ESC>i
+:inoremap > <c-r>=ClosePair('>')<CR>
+:inoremap { {}<ESC>i<CR><ESC>O
 :inoremap } <c-r>=ClosePair('}')<CR>
-":inoremap [ []<ESC>i
+:inoremap [ []<ESC>i
 :inoremap ] <c-r>=ClosePair(']')<CR>
-":inoremap " ""<ESC>i
-":inoremap ' ''<ESC>i
+:inoremap " ""<ESC>i
+:inoremap ' ''<ESC>i
 function! ClosePair(char)
 	 if getline('.')[col('.') - 1] == a:char
 		return "\<Right>"
@@ -129,29 +141,34 @@ endfunction
 
 call plug#begin('~/.vim/plugged')
 
+"============  nerdtree  ============
+
 Plug 'preservim/nerdtree'
 ""open nerdtree when vim is open
-autocmd VimEnter * NERDTree | wincmd p
+" autocmd VimEnter * NERDTree | wincmd p
 ""Close the tab if NERDTree is the only window remaining in it.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
+"==========  clangformat  ===========
+
 Plug 'rhysd/vim-clang-format'
-"coding style options, code_style is a base style, LLVM, GNU, Google, Chromium, Mozilla, Webkit, Microsoft is supported. default value is google.
-"let g:clang_format#code_style=LLVM
-"coding style options is a dictionary"
-let g:clang_format#style_options={}
-"value 1 means 自动格式化在保存时"
+"coding style options, code_style is a base style, LLVM, Google, Chromium, Mozilla, Webkit, Microsoft is supported. default value is google.
+" let g:clang_format#code_style="mozilla"
+"value is 1, vim-clang-format automatically detects the style file like .clang-format and applies the style to formatting
+let g:clang_format#detect_style_file =1
 let g:clang_format#auto_format=1
 "value 1 means 插入的行自动格式化在退出插入模式时"
-let g:clang_format#auto_format_on_insert_leave=1
+" let g:clang_format#auto_format_on_insert_leave=1
 ""对于c类型文件自动格式化启用
 autocmd FileType c ClangFormatAutoEnable
+
+"=========  nerdcommenter  ==========
 
 Plug 'scrooloose/nerdcommenter'
 " Create default mappings
 let g:NERDCreateDefaultMappings = 1
 " Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
+" let g:NERDSpaceDelims = 1
 " Use compact syntax for prettified multi-line comments
 let g:NERDCompactSexyComs = 1
 " Align line-wise comment delimiters flush left instead of following code indentation
@@ -167,6 +184,7 @@ let g:NERDTrimTrailingWhitespace = 1
 " Enable NERDCommenterToggle to check all selected lines is commented or not 
 let g:NERDToggleCheckAllLines = 1
 
+"============  others  =============
 
 ""Plug 'vim-airline/vim-airline'
 ""Plug 'vim-airline/vim-airline-themes'
