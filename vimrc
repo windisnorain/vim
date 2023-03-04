@@ -55,11 +55,11 @@ set statusline=[%F]%y%r%m%*%=[Line:%l/%L,Column:%c][%p%%]
 
 set autoindent   	"自动缩进
 set cindent
-set softtabstop=4   	"使得按退格键时可以一次删掉 4 个空格
-set shiftwidth=4  	"设定 << 和 >> 命令移动时的宽度为 4
+set softtabstop=8   	"使得按退格键时可以一次删掉 4 个空格
+set shiftwidth=8  	"设定 << 和 >> 命令移动时的宽度为 4
 set smartindent  	"为C程序提供自动缩进
 set backspace=indent,eol,start  " 不设定在插入状态无法用退格键和 Delete键删除回车符
-set tabstop=4 		"Tab键的宽度
+set tabstop=8 		"Tab键的宽度
 set noexpandtab 	"不要用空格代替制表符
 set smarttab  		"在行和段开始处使用制表符
 
